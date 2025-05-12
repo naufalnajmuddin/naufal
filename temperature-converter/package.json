@@ -1,0 +1,11 @@
+{
+  "name": "temperature-converter",
+  "version": "1.0.0",
+  "description": "Konversi suhu Celsius ke Fahrenheit dan Kelvin",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js < input.txt"
+  },
+  "author": "Nama Kamu",
+  "license": "MIT"
+}
