@@ -1,0 +1,11 @@
+{
+  "name": "calculator-cli",
+  "version": "1.0.0",
+  "description": "Kalkulator CLI sederhana untuk demonstrasi CI/CD",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js < input.txt"
+  },
+  "author": "Nama Kamu",
+  "license": "MIT"
+}
