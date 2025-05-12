@@ -20,7 +20,9 @@ jobs:
         node-version: '18'
 
     - name: Install Dependencies
-      run: npm install
+      run: 
+        cd subdirectory-path
+        npm install
 
     - name: Run the Program
       run: node index.js < input.txt
