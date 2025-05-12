@@ -2,33 +2,31 @@ name: Node.js CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ master ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Build Docker image
-      run: docker build -t calc-cli
+      - name: Build Docker image
+        run: docker build -t temp_converter .
 
-    - name: Login to Heroku Container Registry
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: |
-        echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
+      - name: Login to Heroku Container Registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com
 
-    - name: Push Docker image to Heroku
-      run: |
-        docker tag calc-cli registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
-        docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+      - name: Push Docker image to Heroku
+        run: |
+          docker tag temp_converter registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
 
-    - name: Release Heroku app
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: |
-        heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
+      - name: Release app on Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
