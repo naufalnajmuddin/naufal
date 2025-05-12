@@ -6,15 +6,14 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - name: Checkout code
+        uses: actions/checkout@v3
 
     - name: Build Docker image
-      run: docker build -t calc-cli .
+        run: docker build -f .github/workflows/temperature-converter/Dockerfile -t my-app .
 
     - name: Login to Heroku Container Registry
       env:
