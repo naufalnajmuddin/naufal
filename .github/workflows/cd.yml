@@ -2,18 +2,18 @@ name: Node.js CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ master ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - name: Checkout code 
+      uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker build -t temp_converter .
+    - name: Build Docker image
+      run: docker build -t my-app -f .github/workflows/temperature-converter/Dockerfile .
 
     - name: Login to Heroku Container Registry
       env:
